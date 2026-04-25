@@ -56,10 +56,15 @@ import seaborn as sns
 st.header("IPL Visual Insights")
 
 matches_df = pd.read_csv("data/matches.csv")
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# 1. Matches by city
+matches_df = pd.read_csv("data/matches.csv")
+
+st.header("IPL Visual Insights")
+
 st.subheader("Matches Played by City")
-city_counts = match_df['city'].dropna().value_counts().head(10)
+city_counts = matches_df['city'].dropna().value_counts().head(10)
 
 fig1, ax1 = plt.subplots(figsize=(10, 5))
 sns.barplot(x=city_counts.values, y=city_counts.index, ax=ax1, palette="viridis")
@@ -68,18 +73,16 @@ ax1.set_ylabel("City")
 ax1.set_title("Top 10 Cities by Matches Hosted")
 st.pyplot(fig1)
 
-# 2. Toss decision distribution
 st.subheader("Toss Decision Distribution")
-toss_counts = match_df['toss_decision'].value_counts()
+toss_counts = matches_df['toss_decision'].value_counts()
 
 fig2, ax2 = plt.subplots(figsize=(6, 6))
 ax2.pie(toss_counts.values, labels=toss_counts.index, autopct="%1.1f%%", startangle=90)
 ax2.set_title("Bat vs Field Decisions After Toss")
 st.pyplot(fig2)
 
-# 3. Top winning teams
 st.subheader("Top Winning Teams")
-winner_counts = match_df['winner'].dropna().value_counts().head(10)
+winner_counts = matches_df['winner'].dropna().value_counts().head(10)
 
 fig3, ax3 = plt.subplots(figsize=(10, 5))
 sns.barplot(x=winner_counts.index, y=winner_counts.values, ax=ax3, palette="magma")
