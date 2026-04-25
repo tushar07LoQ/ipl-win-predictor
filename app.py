@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import pickle
-
 st.set_page_config(page_title="IPL Win Predictor", layout="centered")
 
 # Load model
@@ -56,9 +55,11 @@ import seaborn as sns
 
 st.header("IPL Visual Insights")
 
+matches_df = pd.read_csv("data/matches.csv")
+
 # 1. Matches by city
 st.subheader("Matches Played by City")
-city_counts = matches_df['city'].dropna().value_counts().head(10)
+city_counts = match_df['city'].dropna().value_counts().head(10)
 
 fig1, ax1 = plt.subplots(figsize=(10, 5))
 sns.barplot(x=city_counts.values, y=city_counts.index, ax=ax1, palette="viridis")
@@ -69,7 +70,7 @@ st.pyplot(fig1)
 
 # 2. Toss decision distribution
 st.subheader("Toss Decision Distribution")
-toss_counts = matches_df['toss_decision'].value_counts()
+toss_counts = match_df['toss_decision'].value_counts()
 
 fig2, ax2 = plt.subplots(figsize=(6, 6))
 ax2.pie(toss_counts.values, labels=toss_counts.index, autopct="%1.1f%%", startangle=90)
@@ -78,7 +79,7 @@ st.pyplot(fig2)
 
 # 3. Top winning teams
 st.subheader("Top Winning Teams")
-winner_counts = matches_df['winner'].dropna().value_counts().head(10)
+winner_counts = match_df['winner'].dropna().value_counts().head(10)
 
 fig3, ax3 = plt.subplots(figsize=(10, 5))
 sns.barplot(x=winner_counts.index, y=winner_counts.values, ax=ax3, palette="magma")
